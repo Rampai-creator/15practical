@@ -15,7 +15,7 @@ public class Anagrams {
 
     public static void main(String[] args) throws IOException {
 
-        // 1. Accept input filename from command line 
+        //1. Accept input filename from command line 
         String inputFile;
         if (args.length == 1) {
             inputFile = args[0];
@@ -141,6 +141,21 @@ public class Anagrams {
         texWriter.close();
         System.out.println("Written: latex/theAnagrams.tex");
         System.out.println("Done. " + anagramLines.size() + " anagram entries written.");
+         
+        //7.Print a sample of found anagrams to console for verification
+       
+        System.out.println("\n--- Sample Anagram Groups ---");
+        int count = 0;
+        for (Map.Entry<String, ArrayList<String>> entry : A.entrySet()) {
+            if (entry.getValue().size() >= 3) {
+                System.out.println(entry.getKey() + ": " + entry.getValue());
+                count++;
+                if (count >= 10) break;
+            }
+        }
+    }
+}
+
 
 
 
