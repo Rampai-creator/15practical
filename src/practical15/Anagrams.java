@@ -1,3 +1,5 @@
+//Nakedi Rampai 4343349
+
 import java.io.*;
 import java.util.*;
 
@@ -74,4 +76,36 @@ public class Anagrams {
         }
 
         System.out.println("Signature groups: " + A.size());
+        
+        //4. Build anagram lines with rotations for groups of size >= 2
+        //Each group produces N lines where N = number of words,
+        //each line being a rotation of the word list.
+    
+        ArrayList<String> anagramLines = new ArrayList<>();
+
+        for (String key : A.keySet()) {
+            ArrayList<String> group = A.get(key);
+            if (group.size() > 1) {
+                //Build the initial anagram list string
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < group.size(); i++) {
+                    if (i > 0) sb.append(" ");
+                    sb.append(group.get(i));
+                }
+                String anagramList = sb.toString();
+
+                //First rotation 
+                anagramLines.add(anagramList + "\\\\");
+
+                //Subsequent rotations: move first word to end
+                for (int repeat = 0; repeat < group.size() - 1; repeat++) {
+                    int space = anagramList.indexOf(' ');
+                    anagramList = anagramList.substring(space + 1) + " " + anagramList.substring(0, space);
+                    anagramLines.add(anagramList + "\\\\");
+                }
+            }
+        }
+
+        System.out.println("Anagram lines generated: " + anagramLines.size());
+
 
