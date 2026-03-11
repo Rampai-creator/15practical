@@ -107,5 +107,40 @@ public class Anagrams {
         }
 
         System.out.println("Anagram lines generated: " + anagramLines.size());
+        
+        //5. Sort anagram lines alphabetically
+        
+        Collections.sort(anagramLines);
+
+        
+        //6. Write latex/theAnagrams.tex with LaTeX section headers
+        //by letter of the alphabet
+        
+        File latexDir = new File("latex");
+        if (!latexDir.exists()) {
+            latexDir.mkdirs();
+        }
+
+        PrintWriter texWriter = new PrintWriter(new FileWriter("latex/theAnagrams.tex"));
+
+        char currentLetter = 'X'; 
+
+        for (String lemma : anagramLines) {
+            if (lemma.isEmpty()) continue;
+            char initial = lemma.charAt(0);
+            //When the first letter changes, print a section header
+            if (Character.toLowerCase(initial) != Character.toLowerCase(currentLetter)) {
+                currentLetter = initial;
+                texWriter.println();
+                texWriter.println("\\vspace{14pt}");
+                texWriter.println("\\noindent\\textbf{\\Large " + Character.toUpperCase(currentLetter) + "}\\\\*[+12pt]");
+            }
+            texWriter.println(lemma);
+        }
+
+        texWriter.close();
+        System.out.println("Written: latex/theAnagrams.tex");
+        System.out.println("Done. " + anagramLines.size() + " anagram entries written.");
+
 
 
